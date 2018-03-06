@@ -1,0 +1,29 @@
+group 'pt.isel.daw'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+
+}
+
+dependencies {
+
+    // The Spring IoC/DI library
+    compile group: 'org.springframework', name: 'spring-context', version: '5.0.4.RELEASE'
+
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+
+    // Just for logging
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    runtime group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
+    compile group: 'org.eclipse.jetty.aggregate', name: 'jetty-all', version: '9.4.8.v20171121', ext: 'pom'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.4.RELEASE'
+}
