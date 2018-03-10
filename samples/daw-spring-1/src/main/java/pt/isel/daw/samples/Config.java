@@ -25,7 +25,7 @@ public class Config {
 
     @Bean
     @Scope("request")
-    public Connection connection(DataSource ds) throws SQLException {
+    public Connection recipeForConnections(DataSource ds) throws SQLException {
         return ds.getConnection();
     }
 

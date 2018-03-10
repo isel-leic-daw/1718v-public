@@ -4,7 +4,6 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
-		mavenLocal()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -15,7 +14,6 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'maven-publish'
 
 group = 'pt.isel.daw'
 version = '0.0.1-SNAPSHOT'
@@ -23,14 +21,6 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
-}
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
 }
 
 

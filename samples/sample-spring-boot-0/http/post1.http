@@ -1,0 +1,8 @@
+POST http://localhost:8081/examples/8
+Content-Type: application/json
+Accept: application/xml
+
+{
+  "i": 42,
+  "s": "hello"
+}

@@ -4,31 +4,21 @@ import org.springframework.stereotype.Component;
 import pt.isel.daw.samples.Command;
 import pt.isel.daw.samples.CommandRequest;
 import pt.isel.daw.samples.CommandResult;
-import pt.isel.daw.samples.Shutdown;
 
 @Component
-public class ShutdownCommand implements Command {
-
-    private final Shutdown shutdown;
-
-    public ShutdownCommand(Shutdown shutdown) {
-
-        this.shutdown = shutdown;
-    }
-
+public class SomeCommand implements Command {
     @Override
     public CommandResult execute(CommandRequest req) {
-        shutdown.start();
         return null;
     }
 
     @Override
     public String getPathTemplate() {
-        return "/shutdown";
+        return "/some/path";
     }
 
     @Override
     public String getMethod() {
-        return "POST";
+        return "PUT";
     }
 }

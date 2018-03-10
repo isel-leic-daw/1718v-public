@@ -65,5 +65,7 @@ public class RequestScope implements Scope {
             log.info("destroying {}", e.getKey());
             e.getValue().run();
         }
+        destructionMapForThisThread.clear();
+        beanMap.get().clear();
     }
 }

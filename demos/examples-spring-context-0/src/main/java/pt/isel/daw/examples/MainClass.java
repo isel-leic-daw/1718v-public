@@ -12,6 +12,7 @@ public class MainClass {
     public static void main(String[] args) {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfig.class);
+        log.info("before getBean");
         Service2 svc2 = ctx.getBean(Service2.class);
         log.info("The service2 is {}", svc2);
 

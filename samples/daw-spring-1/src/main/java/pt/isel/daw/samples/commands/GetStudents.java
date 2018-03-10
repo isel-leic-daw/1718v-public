@@ -3,10 +3,7 @@ package pt.isel.daw.samples.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import pt.isel.daw.samples.Command;
-import pt.isel.daw.samples.CommandRequest;
-import pt.isel.daw.samples.CommandResult;
-import pt.isel.daw.samples.SomeCloseableThing;
+import pt.isel.daw.samples.*;
 
 import javax.inject.Provider;
 import java.sql.Connection;
@@ -16,24 +13,32 @@ public class GetStudents implements Command {
 
     private static final Logger log = LoggerFactory.getLogger(GetStudents.class);
 
-    private final Provider<Connection> connectionProvider;
+
+    private final StudentsRepo studentsRepo;
+    private final CourseRepo courseRepo;
     private final Provider<SomeCloseableThing> anotherProvider;
 
-    public GetStudents(Provider<Connection> connectionProvider, Provider<SomeCloseableThing> anotherProvider) {
+    public GetStudents(
+            StudentsRepo studentsRepo,
+            CourseRepo courseRepo,
+            Provider<SomeCloseableThing> anotherProvider) {
+        this.studentsRepo = studentsRepo;
+        this.courseRepo = courseRepo;
 
-        this.connectionProvider = connectionProvider;
         this.anotherProvider = anotherProvider;
     }
 
     @Override
     public CommandResult execute(CommandRequest req) {
-        Connection c1 = connectionProvider.get();
-        Connection c2 = connectionProvider.get();
+
+        studentsRepo.doSomething();
+        // (...)
+        courseRepo.doSomething();
+
 
         anotherProvider.get();
         anotherProvider.get();
 
-        log.info("c1 = {}, c2 = {}", c1.hashCode(), c2.hashCode());
         return null;
     }
 
