@@ -20,6 +20,7 @@ public class ICalMessageConverter extends AbstractGenericHttpMessageConverter<IC
 
     @Override
     public boolean supports(Class<?> type) {
+
         return ICalendar.class.isAssignableFrom(type);
     }
 

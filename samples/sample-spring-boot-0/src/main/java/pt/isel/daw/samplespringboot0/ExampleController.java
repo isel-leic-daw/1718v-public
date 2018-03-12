@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 
 import biweekly.util.Duration;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 @RestController
@@ -30,6 +32,7 @@ import javax.websocket.server.PathParam;
 public class ExampleController {
 
     private static final Logger log = LoggerFactory.getLogger(ExampleController.class);
+
     private final List<HttpMessageConverter<?>> messageConverterList;
 
     public ExampleController(List<HttpMessageConverter<?>> messageConverterList) {
@@ -172,6 +175,23 @@ public class ExampleController {
                 .map(e -> e.getClass().getSimpleName())
                 .collect(Collectors.toList()));
 
+    }
+
+    @GetMapping("/14")
+    public void get14(HttpServletRequest req, HttpServletResponse res) {
+        res.addHeader("My-Header", "My-Value");
+        res.setStatus(204);
+    }
+
+    @GetMapping("/15")
+    public String get15(
+            QueryString qs, int i) {
+        return qs.toString();
+    }
+
+    @GetMapping("/16")
+    public void get16(HttpServletRequest req, HttpServletResponse res) {
+        res.setStatus(204);
     }
 
 }
