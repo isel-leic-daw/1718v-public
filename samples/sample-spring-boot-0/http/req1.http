@@ -1,5 +1,6 @@
-GET http://localhost:8081/examples/9 HTTP/1.1
-Host: localhost:8080
+GET http://feeds.feedburner.com/se-radio?format=xml HTTP/1.1
+Accept: application/rss+xml
+User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
 
 
 

@@ -23,7 +23,9 @@ public class ExampleFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("before");
+
         chain.doFilter(request, response);
+
         String pattern = (String) Optional.ofNullable(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE))
                 .orElse("[unknown]");
         log.info("after, pattern = {}", pattern);

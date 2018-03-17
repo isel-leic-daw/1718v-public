@@ -1,7 +1,10 @@
 package pt.isel.daw.samplespringboot0;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,11 +20,15 @@ import java.util.List;
 public class MvcConfig extends WebMvcConfigurationSupport  {
 
     private final ExampleInterceptor interceptor;
+    private final ICalMessageConverter icalMessageConverter;
 
     // do not forget to explain this ctor
-    public MvcConfig(ExampleInterceptor interceptor) {
+    public MvcConfig(
+            ExampleInterceptor interceptor,
+            ICalMessageConverter icalMessageConverter) {
 
         this.interceptor = interceptor;
+        this.icalMessageConverter = icalMessageConverter;
     }
 
     @Override
@@ -32,6 +39,12 @@ public class MvcConfig extends WebMvcConfigurationSupport  {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         //resolvers.add(new QueryStringArgumentResolver());
+        resolvers.add(new ClientIpArgumentResolver());
+    }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(icalMessageConverter);
     }
 
     @Override
@@ -49,12 +62,17 @@ public class MvcConfig extends WebMvcConfigurationSupport  {
 
     private static class MyServletInvocableHandlerMethod extends ServletInvocableHandlerMethod {
 
+        private static final Logger log = LoggerFactory.getLogger(MyServletInvocableHandlerMethod.class);
+
         public MyServletInvocableHandlerMethod(HandlerMethod handlerMethod) {
             super(handlerMethod);
         }
 
         @Override
         protected Object doInvoke(Object... args) throws Exception {
+            for(Object arg : args) {
+                log.info("parameter: {} -> {}", arg.getClass().getSimpleName(), arg);
+            }
             return super.doInvoke(args);
         }
     }

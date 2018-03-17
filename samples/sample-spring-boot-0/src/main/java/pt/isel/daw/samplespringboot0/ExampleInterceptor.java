@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +24,15 @@ public class ExampleInterceptor implements HandlerInterceptor{
         String pattern = (String) Optional.ofNullable(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE))
                 .orElse("[unknown]");
         log.info("on preHandle for {}", pattern);
-        return true;
+        HandlerMethod hm = (HandlerMethod) handler;
+        RequiresAuthentication methodAnnotation = hm.getMethodAnnotation(RequiresAuthentication.class);
+        if(methodAnnotation != null) {
+            log.info("!!! Requires authentication !!!");
+        }
+
+        throw new Exception("error on the interceptor");
+
+
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,

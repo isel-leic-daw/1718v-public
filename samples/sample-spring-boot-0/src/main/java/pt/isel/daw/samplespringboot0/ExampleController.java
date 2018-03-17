@@ -7,8 +7,15 @@ import biweekly.property.Summary;
 import biweekly.util.Frequency;
 import biweekly.util.Recurrence;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
@@ -116,7 +123,8 @@ public class ExampleController {
     }
 
     @GetMapping(path="/9", produces="text/calendar")
-    public ICalendar get9() {
+    @RequiresAuthentication
+    public ResponseEntity<ICalendar> get9() {
         ICalendar ical = new ICalendar();
         VEvent event = new VEvent();
         Summary summary = event.setSummary("Aula de DAW");
@@ -135,7 +143,11 @@ public class ExampleController {
         event.setRecurrenceRule(recur);
         ical.addEvent(event);
 
-        return ical;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("My-Header", "My-Value");
+        ResponseEntity<ICalendar> res =
+                new ResponseEntity<>(ical, headers, HttpStatus.ACCEPTED);
+        return res;
     }
 
     public static class InputModel10 {
@@ -162,6 +174,9 @@ public class ExampleController {
     public static class ConverterListOutputModel {
         public List<String> converters;
 
+        @JsonProperty("some-integer")
+        public int someInteger;
+
         public ConverterListOutputModel(List<String> converters) {
 
             this.converters = converters;
@@ -169,11 +184,23 @@ public class ExampleController {
     }
 
     @GetMapping("/13")
-    ConverterListOutputModel get13() {
-        return new ConverterListOutputModel(
+    ResponseEntity<ConverterListOutputModel> get13() {
+        ConverterListOutputModel output = new ConverterListOutputModel(
             messageConverterList.stream()
                 .map(e -> e.getClass().getSimpleName())
                 .collect(Collectors.toList()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("My-Header", "My-Value");
+
+        ResponseEntity<ConverterListOutputModel> res = new ResponseEntity<>(
+                output,
+                headers,
+                HttpStatus.ACCEPTED
+        );
+
+
+        return res;
 
     }
 
@@ -192,6 +219,24 @@ public class ExampleController {
     @GetMapping("/16")
     public void get16(HttpServletRequest req, HttpServletResponse res) {
         res.setStatus(204);
+    }
+
+    @GetMapping("/17")
+    public String get17(ClientIp clientIp) {
+        return "hello " +  clientIp;
+    }
+
+    @GetMapping("/18")
+    public String get18() throws Exception {
+        throw new Exception("don't do this");
+    }
+
+    @GetMapping("/19")
+    public JsonNode get19() {
+        ObjectMapper m = new ObjectMapper();
+        ObjectNode node = m.createObjectNode();
+        node.put("the-field", 42);
+        return node;
     }
 
 }
