@@ -1,0 +1,7 @@
+POST https://api.github.com/graphql HTTP/1.1
+Authorization: Bearer TO BE DEFINED
+Content-Type: application/json
+
+{
+  "query":"query { repository(name:\"drum\", owner:\"pmhsfelix\") {name} }"
+}

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHan
 
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class MvcConfig extends WebMvcConfigurationSupport  {
 
     private final ExampleInterceptor interceptor;
@@ -71,6 +71,7 @@ public class MvcConfig extends WebMvcConfigurationSupport  {
         @Override
         protected Object doInvoke(Object... args) throws Exception {
             for(Object arg : args) {
+                if(arg == null) continue;
                 log.info("parameter: {} -> {}", arg.getClass().getSimpleName(), arg);
             }
             return super.doInvoke(args);

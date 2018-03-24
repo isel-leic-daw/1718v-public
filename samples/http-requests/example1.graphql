@@ -1,0 +1,48 @@
+query {
+  node(id:"MDQ6VXNlcjM2NDYwMA=="){
+    ...on User {
+      login
+      name
+      location
+    }
+  }
+  repository(name:"1718v-public",owner:"isel-leic-daw") {
+    name
+    createdAt
+    issues(first:5) {
+      nodes {
+        id
+        title
+        comments(first:5) {
+          nodes {
+            body
+            createdAt
+            author {
+              login
+              ...on User {
+                id
+                name
+                organizations(first:5) {
+                  nodes {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  viewer {
+    name 
+    location 
+    login
+    repositories(first:5) {
+      nodes {
+        name
+        createdAt
+      }
+    }
+  } 
+}

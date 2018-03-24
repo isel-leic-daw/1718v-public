@@ -29,10 +29,7 @@ public class ExampleInterceptor implements HandlerInterceptor{
         if(methodAnnotation != null) {
             log.info("!!! Requires authentication !!!");
         }
-
-        throw new Exception("error on the interceptor");
-
-
+        return true;
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,

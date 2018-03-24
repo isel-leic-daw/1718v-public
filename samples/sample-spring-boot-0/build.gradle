@@ -26,7 +26,9 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('com.fasterxml.jackson.dataformat:jackson-dataformat-xml')
+	compile('io.springfox:springfox-swagger2:2.8.0')
+    compile('io.springfox:springfox-swagger-ui:2.8.0')
+	//runtime('com.fasterxml.jackson.dataformat:jackson-dataformat-xml')
     compile('net.sf.biweekly:biweekly:0.6.1')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

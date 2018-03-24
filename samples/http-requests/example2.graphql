@@ -1,0 +1,12 @@
+mutation {
+  mutation1: addComment(input:{
+    	body:"Final comment 2", 
+    	subjectId:"MDU6SXNzdWUzMDY4NTg4ODc="}) {
+    clientMutationId
+  }
+  mutation2: addComment(input:{
+    	body:"Final comment 3", 
+    	subjectId:"MDU6SXNzdWUzMDY4NTg4ODc="}) {
+    clientMutationId
+  }    
+}

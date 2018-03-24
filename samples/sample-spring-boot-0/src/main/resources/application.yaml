@@ -1,2 +1,5 @@
 server:
   port: 8081
+spring:
+  resources:
+    add-mappings: true

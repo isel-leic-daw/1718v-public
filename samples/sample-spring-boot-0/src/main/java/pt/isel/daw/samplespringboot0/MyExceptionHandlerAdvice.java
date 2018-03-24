@@ -19,6 +19,7 @@ public class MyExceptionHandlerAdvice {
     public final ResponseEntity<ErrorModel> handle(
             Throwable ex,
             WebRequest request) {
+        ex.printStackTrace();
         ErrorModel error = new ErrorModel();
         error.message = ex.getMessage();
         error.type = "http://example.com/error/types/rels/some-type";
