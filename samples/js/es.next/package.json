@@ -1,0 +1,27 @@
+{
+  "name": "es6-examples",
+  "version": "1.0.0",
+  "description": "ES6 examples",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "standard": "^11.0.1"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "globals": [
+      "Request"
+    ]
+
+  }
+}

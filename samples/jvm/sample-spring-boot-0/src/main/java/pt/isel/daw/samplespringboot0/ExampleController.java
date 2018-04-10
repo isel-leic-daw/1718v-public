@@ -49,9 +49,16 @@ public class ExampleController {
 
 
     @GetMapping("/1/{id}")
-    public String get1(@PathVariable("id") int id) {
+    public ResponseEntity<String> get1(
+            @PathVariable("id") int id,
+            @RequestParam("prm1") String prm1,
+            @RequestHeader("My-Header") String prm2
 
-        return "The request id was " + id;
+    ) {
+
+        return new ResponseEntity<String>(
+                "The request id was " + id,
+                HttpStatus.OK);
     }
 
     @GetMapping("/2/{id}")
@@ -70,7 +77,7 @@ public class ExampleController {
                 name.orElse("absent"));
     }
 
-    @GetMapping("/4")
+    //@GetMapping("/4")
     public String get4(
             @RequestParam MultiValueMap<String, String> prms) {
         return prms.entrySet().stream()
@@ -152,6 +159,7 @@ public class ExampleController {
 
     public static class InputModel10 {
         public Integer i;
+        public String[] s;
     }
 
     @PostMapping("/10")
