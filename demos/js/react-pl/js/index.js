@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Line from './ui/line'
 import Clock from './ui/clock'
 import ShowHide from './ui/ShowHide'
+import App from './ui/App'
 
 function demo0 () {
   const tree = React.createElement('div', {},
@@ -57,17 +58,7 @@ function demo3 () {
 
 function demo4 () {
   ReactDOM.render(
-    <div>
-      <h2>The clock</h2>
-      <p>Before the clock</p>
-      <ShowHide>
-        <Clock />
-      </ShowHide>
-      <ShowHide>
-        <Clock />
-      </ShowHide>
-      <p>After the clock</p>
-    </div>,
+    <App />,
     document.getElementById('root')
   )
 }
