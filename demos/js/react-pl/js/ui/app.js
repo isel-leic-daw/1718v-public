@@ -17,5 +17,8 @@ export default function (props) {
     <RepoSelect repos={repos}
       render={({url}) => <IssueList url={url} />}
     />
+    <RepoSelect>
+      <IssueList url={?}
+    </RepoSelect>  
   )
 }

@@ -1,0 +1,28 @@
+<configuration>
+
+    <springProfile name="local">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+        <logger name="org.springframework.web" level="INFO"/>
+    </springProfile>
+
+    <springProfile name="gcp">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+        <logger name="org.springframework.web" level="INFO"/>
+
+        <appender name="CLOUD" class="com.google.cloud.logging.logback.LoggingAppender">
+            <!-- Optional : filter logs at or above a level -->
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>INFO</level>
+            </filter>
+            <log>application.log</log> <!-- Optional : default java.log -->
+            <resourceType>gae_app</resourceType> <!-- Optional : default: auto-detected, fallback: global -->
+            <enhancer>com.example.logging.logback.enhancers.ExampleEnhancer</enhancer> <!-- Optional -->
+            <flushLevel>WARN</flushLevel> <!-- Optional : default ERROR -->
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="CLOUD" />
+        </root>
+    </springProfile>
+
+</configuration>

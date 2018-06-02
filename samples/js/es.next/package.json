@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "bluebird": "^3.5.1",
     "jest": "^22.4.3",
     "standard": "^11.0.1"
   },
@@ -22,6 +23,5 @@
     "globals": [
       "Request"
     ]
-
   }
 }

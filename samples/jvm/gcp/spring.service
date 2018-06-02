@@ -1,0 +1,12 @@
+[Unit]
+Description=The DAW HTTP API
+After=syslog.target
+
+[Service]
+User=spring
+Type=idle
+ExecStart=/usr/bin/java -jar /var/spring/gcp-0.0.1-SNAPSHOT.jar --server.port=8080 --spring.profiles.active=gcp
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
